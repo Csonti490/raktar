@@ -15,7 +15,7 @@ def init_db():
         conn.close()
 
 def get_db_connection():
-    conn = sqlite3.connect(app.config["raktar.db"])
+    conn = sqlite3.connect("raktar.db")
     conn.row_factory = sqlite3.Row
     return conn
 
