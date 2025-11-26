@@ -1,6 +1,5 @@
 import os
 import sqlite3
-from flask import Flask
 from flask import Flask, render_template
 
 
@@ -25,6 +24,13 @@ init_db()
 @app.route("/")
 def index():
     return render_template("index.html")
+
+@app.route("/butorok")
+def butor_list():
+     conn = get_db_connection()
+     rows = conn.execute("SELECT * FROM butor ORDER BY cikkszam").fetchall()
+     conn.close()
+     return render_template("butor_list.html", butorok=rows)
 
 if __name__ == "__main__":
     app.run(debug=True)
