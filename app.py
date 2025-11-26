@@ -1,3 +1,5 @@
+import os
+import sqlite3
 from flask import Flask
 
 app = Flask(__name__)
@@ -16,5 +18,11 @@ def init_db():
                 conn.executescript(f.read())
         conn.commit()
         conn.close()
+
+def get_db_connection():
+    conn = sqlite3.connect(app.config["raktar.db"])
+    conn.row_factory = sqlite3.Row
+    return conn
+
 
 init_db()
