@@ -180,7 +180,6 @@ def update_price(cikkszam):
     lista_ar = request.form["lista_ar"]
     akcios_ar = request.form["akcios_ar"]
 
-    # HA NEM SZÁM, LEGYEN NULL  <-- EZ A FONTOS FIX
     if lista_ar.strip() == "" or lista_ar == "None":
         lista_ar = None
     if akcios_ar.strip() == "" or akcios_ar == "None":
@@ -258,7 +257,16 @@ def report_top_volume():
     else:
         df["terfogat"] = df["x"] * df["y"] * df["z"]
         df = df.sort_values("terfogat", ascending=False).head(10)
-        html_table = df.to_html(classes="table table-striped")
+        df = df.rename(columns={
+            "cikkszam": "Cikkszám",
+            "nev": "Név",
+            "suly": "Súly (kg)",
+            "x": "Méret X (cm)",
+            "y": "Méret Y (cm)",
+            "z": "Méret Z (cm)",
+            "terfogat": "Térfogat (cm³)"
+        })
+        html_table = df.to_html(classes="table table-striped", index=False)
 
     return render_template("report.html", table=html_table)
 
