@@ -32,5 +32,7 @@ def butor_list():
      conn.close()
      return render_template("butor_list.html", butorok=rows)
 
+# Csá
+
 if __name__ == "__main__":
     app.run(debug=True)
